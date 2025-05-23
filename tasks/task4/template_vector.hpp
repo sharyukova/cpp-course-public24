@@ -39,21 +39,24 @@ public:
         if (size_ == capacity_) {
             reserve(capacity_ * reserve_miltiply_);
         }
-        data_[size_++] = value;
+        data_[size_] = value;
+        ++size_;
     }
 
     void push_back(T && value) {
         if (size_ == capacity_) {
             reserve(capacity_ * reserve_miltiply_);
         }
-        data_[size_++] = std::move(value);
+        data_[size_] = value;
+        ++size_;
     }
 
     void pop_back() {
         if (empty()) {
             throw std::out_of_range("empty vector");
         }
-        data_[--size_] = T(); // Вызываем конструктор по умолчанию
+        --size_;
+        data_[size_] = T(); 
     }
     
     void clear() {
